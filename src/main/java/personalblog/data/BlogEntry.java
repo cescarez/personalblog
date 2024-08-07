@@ -1,29 +1,28 @@
 package personalblog.data;
 
-import java.time.Instant;
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.extern.jackson.Jacksonized;
+import org.springframework.lang.NonNull;
 
+import java.time.LocalDateTime;
+
+@Jacksonized @Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BlogEntry {
-
     private String blogEntryId;
-
+    private LocalDateTime createdDate;
     private String blogSiteId;
-
-    private Instant createdDate;
-
     private String title;
-    
     private String content;
-
     private boolean isPublished;
 
-    public BlogEntry(String blogSiteId, String title, String content) {
+    public BlogEntry(@JsonProperty("blogSiteId") String blogSiteId, @JsonProperty("title") String title, @JsonProperty("content") String content) {
         this(null, null, blogSiteId, title, content, false);
     }
 
-    public BlogEntry(String blogEntryId, Instant createdDate, String blogSiteId, String title, String content, boolean isPublished) {
-//        this.blogEntryId = blogEntryId != null ? blogEntryId : UUID.randomUUID().toString();
-//        this.createdDate = createdDate != null ? createdDate : Instant.now();
+    public BlogEntry(String blogEntryId, LocalDateTime createdDate, @NonNull String blogSiteId, @NonNull String title, @NonNull String content, boolean isPublished) {
         this.blogEntryId = blogEntryId;
         this.createdDate = createdDate;
         this.blogSiteId = blogSiteId;
@@ -40,7 +39,7 @@ public class BlogEntry {
         return blogSiteId;
     }
 
-    public Instant getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 

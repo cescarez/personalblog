@@ -38,11 +38,14 @@ public class BlogEntryController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<BlogEntry> createBlogEntry(@RequestBody String blogSiteId, @RequestBody String title, @RequestBody String content) {
-        BlogEntry newBlogEntry = new BlogEntry(blogSiteId, title, content);
-        BlogEntry createdBlogEntry = blogEntryService.createBlogEntry(newBlogEntry);
-        return new ResponseEntity<>(createdBlogEntry, HttpStatus.CREATED);
+    @PostMapping("/blog-entry")
+    public ResponseEntity<BlogEntry> createBlogEntry(@RequestBody BlogEntry blogEntry) {
+        BlogEntry createdBlogEntry = blogEntryService.createBlogEntry(blogEntry);
+        if (createdBlogEntry != null) {
+            return new ResponseEntity<>(createdBlogEntry, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/blog-entry/{id}")
@@ -56,8 +59,12 @@ public class BlogEntryController {
     }
 
     @DeleteMapping("/blog-entry/{id}")
-    public ResponseEntity<HttpStatus> deleteComment(@PathVariable String id) {
-        blogEntryService.deleteBlogEntry(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<HttpStatus> deleteBlogEntry(@PathVariable String id) {
+        boolean blogEntryDeleted = blogEntryService.deleteBlogEntry(id);
+        if (blogEntryDeleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
