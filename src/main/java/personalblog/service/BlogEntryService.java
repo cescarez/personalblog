@@ -10,12 +10,15 @@ import java.util.Properties;
 
 @Service
 public class BlogEntryService {
+    private final String user = "postgres";
+    private final String password = "postgres";
+
     public List<BlogEntry> getAllBlogEntries() {
         List<BlogEntry> blogEntries = new ArrayList<>();
         String sqlQuery = "SELECT * FROM blog_entry;";
         try {
             String url = "jdbc:postgresql://localhost:5432/blog";
-            Connection conn = DriverManager.getConnection(url, "postgres", "postgres");
+            Connection conn = DriverManager.getConnection(url, user, password);
             Statement statement = conn.createStatement();
 
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -48,7 +51,7 @@ public class BlogEntryService {
         BlogEntry blogEntry = null;
         try {
             String url = "jdbc:postgresql://localhost:5432/blog";
-            Connection conn = DriverManager.getConnection(url, "postgres", "postgres");
+            Connection conn = DriverManager.getConnection(url, user, password);
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             if (resultSet.next()) {
@@ -71,7 +74,7 @@ public class BlogEntryService {
         BlogEntry createdBlogEntry = null;
         try {
             String url = "jdbc:postgresql://localhost:5432/blog";
-            Connection conn = DriverManager.getConnection(url, "postgres", "postgres");
+            Connection conn = DriverManager.getConnection(url, user, password);
             Statement statement = conn.createStatement();
             int updatedRow = statement.executeUpdate(sqlQuery);
             if (updatedRow > 0) {
@@ -99,7 +102,7 @@ public class BlogEntryService {
         BlogEntry updatedBlogEntry = null;
         try {
             String url = "jdbc:postgresql://localhost:5432/blog";
-            Connection conn = DriverManager.getConnection(url, "postgres", "postgres");
+            Connection conn = DriverManager.getConnection(url, user, password);
             Statement statement = conn.createStatement();
             int updatedRow = statement.executeUpdate(sqlQuery);
             if (updatedRow > 0) {
@@ -126,7 +129,7 @@ public class BlogEntryService {
 
         try {
             String url = "jdbc:postgresql://localhost:5432/blog";
-            Connection conn = DriverManager.getConnection(url, "postgres", "postgres");
+            Connection conn = DriverManager.getConnection(url, user, password);
             Statement statement = conn.createStatement();
             int deletedRow = statement.executeUpdate(sqlQuery);
             return deletedRow > 0;
