@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 import personalblog.data.BlogEntry;
+import personalblog.util.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,15 +13,12 @@ import java.util.List;
 @Jacksonized @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlogEntryDAO {
-    private final String url = "jdbc:postgresql://localhost:5432/blog";
-    private final String dbuser = "postgres";
-    private final String dbpassword = "postgres";
 
     public List<BlogEntry> getAll() {
         List<BlogEntry> blogEntries = new ArrayList<>();
         String sqlQuery = "SELECT * FROM public.blog_entry;";
         try {
-            Connection conn = DriverManager.getConnection(url, dbuser, dbpassword);
+            Connection conn = DatabaseConnection.getConnection();
             Statement statement = conn.createStatement();
 
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -45,7 +43,7 @@ public class BlogEntryDAO {
         String sqlQuery = String.format("SELECT * FROM public.blog_entry WHERE id = '%s';", blogEntryId);
         BlogEntry blogEntry = null;
         try {
-            Connection conn = DriverManager.getConnection(url, dbuser, dbpassword);
+            Connection conn = DatabaseConnection.getConnection();
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             if (resultSet.next()) {
@@ -67,7 +65,7 @@ public class BlogEntryDAO {
         String sqlQuery = String.format("INSERT INTO public.blog_entry (blog_id,title,content)\nVALUES('%s','%s','%s');", blogEntry.getBlogSiteId(), blogEntry.getTitle(), blogEntry.getContent());
         BlogEntry createdBlogEntry = null;
         try {
-            Connection conn = DriverManager.getConnection(url, dbuser, dbpassword);
+            Connection conn = DatabaseConnection.getConnection();
             Statement statement = conn.createStatement();
             int updatedRow = statement.executeUpdate(sqlQuery);
             if (updatedRow > 0) {
@@ -94,7 +92,7 @@ public class BlogEntryDAO {
                 blogEntry.getBlogSiteId(), blogEntry.getTitle(), blogEntry.getContent(), blogEntry.isPublished(), blogEntryId);
         BlogEntry updatedBlogEntry = null;
         try {
-            Connection conn = DriverManager.getConnection(url, dbuser, dbpassword);
+            Connection conn = DatabaseConnection.getConnection();
             Statement statement = conn.createStatement();
             int updatedRow = statement.executeUpdate(sqlQuery);
             if (updatedRow > 0) {
@@ -120,7 +118,7 @@ public class BlogEntryDAO {
         String sqlQuery = String.format("DELETE FROM public.blog_entry WHERE id = '%s';", blogEntryId);
 
         try {
-            Connection conn = DriverManager.getConnection(url, dbuser, dbpassword);
+            Connection conn = DatabaseConnection.getConnection();
             Statement statement = conn.createStatement();
             int deletedRow = statement.executeUpdate(sqlQuery);
             return deletedRow > 0;
