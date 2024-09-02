@@ -13,22 +13,22 @@ public class BlogEntryService {
     BlogEntryDAO blogEntryDAO;
 
     public List<BlogEntry> getAllBlogEntries() {
-        return blogEntryDAO.getAllBlogEntries();
+        return blogEntryDAO.getAll();
     }
 
     public BlogEntry getBlogEntryById(String blogEntryId) {
-        return blogEntryDAO.getBlogEntryById(blogEntryId);
+        return blogEntryDAO.getById(blogEntryId);
     }
 
     public BlogEntry createBlogEntry(BlogEntry blogEntry) {
-        return blogEntryDAO.createBlogEntry(blogEntry);
+        return blogEntryDAO.add(blogEntry);
     }
 
     public BlogEntry updateBlogEntry(String blogEntryId, BlogEntry blogEntry) {
-        return blogEntryDAO.updateBlogEntry(blogEntryId, blogEntry);
+        return blogEntryDAO.update(blogEntryId, blogEntry);
     }
 
     public boolean deleteBlogEntry(String blogEntryId) {
-        return blogEntryDAO.deleteBlogEntry(blogEntryId);
+        return blogEntryDAO.delete(blogEntryId);
     }
 }

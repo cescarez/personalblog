@@ -16,7 +16,7 @@ public class BlogEntryDAO {
     private final String dbuser = "postgres";
     private final String dbpassword = "postgres";
 
-    public List<BlogEntry> getAllBlogEntries() {
+    public List<BlogEntry> getAll() {
         List<BlogEntry> blogEntries = new ArrayList<>();
         String sqlQuery = "SELECT * FROM public.blog_entry;";
         try {
@@ -41,7 +41,7 @@ public class BlogEntryDAO {
         return blogEntries;
     }
 
-    public BlogEntry getBlogEntryById(String blogEntryId) {
+    public BlogEntry getById(String blogEntryId) {
         String sqlQuery = String.format("SELECT * FROM public.blog_entry WHERE id = '%s';", blogEntryId);
         BlogEntry blogEntry = null;
         try {
@@ -63,7 +63,7 @@ public class BlogEntryDAO {
         return blogEntry;
     }
 
-    public BlogEntry createBlogEntry(BlogEntry blogEntry) {
+    public BlogEntry add(BlogEntry blogEntry) {
         String sqlQuery = String.format("INSERT INTO public.blog_entry (blog_id,title,content)\nVALUES('%s','%s','%s');", blogEntry.getBlogSiteId(), blogEntry.getTitle(), blogEntry.getContent());
         BlogEntry createdBlogEntry = null;
         try {
@@ -89,7 +89,7 @@ public class BlogEntryDAO {
         return createdBlogEntry;
     }
 
-    public BlogEntry updateBlogEntry(String blogEntryId, BlogEntry blogEntry) {
+    public BlogEntry update(String blogEntryId, BlogEntry blogEntry) {
         String sqlQuery = String.format("UPDATE public.blog_entry\nSET blog_id = '%s',title = '%s',content = '%s',is_published =%s\nWHERE id= '%s';",
                 blogEntry.getBlogSiteId(), blogEntry.getTitle(), blogEntry.getContent(), blogEntry.isPublished(), blogEntryId);
         BlogEntry updatedBlogEntry = null;
@@ -116,7 +116,7 @@ public class BlogEntryDAO {
         return updatedBlogEntry;
     }
 
-    public boolean deleteBlogEntry(String blogEntryId) {
+    public boolean delete(String blogEntryId) {
         String sqlQuery = String.format("DELETE FROM public.blog_entry WHERE id = '%s';", blogEntryId);
 
         try {
