@@ -3,6 +3,8 @@ package personalblog.dao;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import personalblog.data.BlogEntry;
 import personalblog.util.DatabaseConnection;
 
@@ -10,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 @Jacksonized @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlogEntryDAO {

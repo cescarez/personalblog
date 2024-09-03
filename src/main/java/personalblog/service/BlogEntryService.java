@@ -7,6 +7,7 @@ import personalblog.dao.BlogEntryDAO;
 import personalblog.data.BlogEntry;
 import personalblog.util.Logger;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,6 +15,9 @@ public class BlogEntryService {
     @Autowired
     BlogEntryDAO blogEntryDAO;
     Logger logger = Logger.getInstance();
+
+    public BlogEntryService() {
+    }
 
     public List<BlogEntry> getAllBlogEntries() {
         Stopwatch stopwatch = Stopwatch.createStarted();
