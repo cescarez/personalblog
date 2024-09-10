@@ -16,7 +16,7 @@
    1. Navigate to the target subdirectory and run `java -jar personalblog-0.1-SNAPSHOT-exec.jar`
    2. See "To utilize service" below for API calls, or use [Postman collection](https://www.postman.com/cescarez/workspace/sde-330/collection/12985570-938b3f8b-3120-4263-aa1c-923a82e6c295?action=share&creator=12985570) and [Postman environment](https://www.postman.com/cescarez/workspace/sde-330/environment/12985570-46663790-5dbd-419e-b143-2f34ef0602f4](https://www.postman.com/cescarez/workspace/sde-330/environment/12985570-edcf4111-0cff-4d88-805e-8fc4e419b809).
 3. In EC2:
-   1. To deploy (Note: application is already deployed and running for Christabel Escarez's SDE 330 final app submission. Confirm app is running with `sudo systemctl status personal-blog-l`. If app is not running, run `sudo systemctl start personal-blog`.
+   1. To deploy (Note: application is already deployed and running for Christabel Escarez's SDE 330 final app submission. Confirm app is running with `sudo systemctl status personal-blog`. If app is not running, run `sudo systemctl start personal-blog`.
       1. Log onto EC2 instance by logging into AWS console and copying SSH command to connect to instance. `cd` into directory with your pem file before executing command. Ex: `ssh -i <pem> ec2-user@ec2-3-92-145-82.compute-1.amazonaws.com`
       2. Ensure Postgres is running: `sudo systemctl status postgresql`
       3. In local terminal, `cd` into directory with your pem file and copy jar from local target directory into home directory of ES instance: `scp -i <pem> target/personalblog-0.1-SNAPSHOT-exec.jar ec2-user@ec2-3-92-145-82.compute-1.amazonaws.com:~/.`
